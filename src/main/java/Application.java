@@ -1,26 +1,15 @@
-import java.io.BufferedReader;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.FileReader;
 import java.io.IOException;
 
 public class Application {
 
-    public static void main(String[] args) {
+    public static final ObjectMapper MAPPER = new ObjectMapper();
 
-        BufferedReader file = null;
-        try {
-            file = new BufferedReader(new FileReader("file.txt"));
-            String line;
-            while ((line = file.readLine()) != null){
-                System.out.println(line);
-            }
-        } catch (IOException e){
-            System.out.println(e);
-        } finally {
-            try {
-                file.close();
-            } catch (IOException e){
-                System.out.println(e);
-            }
-        }
+    public static void main(String[] args) throws IOException {
+        Person person = MAPPER.readValue(new FileReader("file.json"), Person.class);
+
+        System.out.println(person);
     }
 }
